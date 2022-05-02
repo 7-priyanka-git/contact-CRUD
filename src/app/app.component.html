@@ -1,0 +1,52 @@
+<button style="float: right;" (click)="addHandler()">Add</button>
+<table id="customers">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Phone</th>
+    <th>Id</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let contact of contacts; let i=index">
+    <td Contenteditable="true">{{contact.phone}}</td>
+    <td Contenteditable="true">{{contact.lastName}}</td>
+    <td Contenteditable="true">{{contact.firstName}}</td>
+    <td Contenteditable="true">{{contact.id}}</td>
+    <td>
+      <button (click)="editHandler(i)">Edit</button>
+      <button (click)="deleteHandler(i)">Delete</button>
+    </td>
+  </tr>
+</table>
+
+<form *ngIf="isAddContactForm" [formGroup]="contactForm">
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" (click)="close()">&times;</span>
+      <h1>{{title}} </h1>
+      <label for="first-name">First Name: </label>
+      <input id="first-name" type="text" formControlName="firstName">
+      <span class="text-danger"
+        *ngIf="(contactForm.controls.firstName.touched || submitted) && contactForm.controls.firstName.errors?.required">
+        Name is required
+      </span><br>
+
+      <label for="last-name">Last Name: </label>
+      <input id="last-name" type="text" formControlName="lastName"><br>
+
+
+      <label for="phone">Contact: </label>
+      <input id="phone" maxlength="10" minlength="10" type="number" formControlName="phone">
+      <span class="text-danger"
+        *ngIf="(contactForm.controls.phone.touched || submitted) && contactForm.controls.phone.errors?.required">
+        Phone number is required
+      </span>
+      <button class="submit" type="submit" (click)="submit()">Submit</button>
+    </div>
+
+  </div>
+
+
+</form>
